@@ -77,10 +77,10 @@ particlesGeometry.setAttribute(
 )
 
 // Material
-const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.02,
-  sizeAttenuation: true,
-})
+const particlesMaterial = new THREE.PointsMaterial()
+;(particlesMaterial.size = 0.02),
+  (particlesMaterial.sizeAttenuation = true),
+  (particlesMaterial.color = new THREE.Color("#ffffff"))
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
@@ -181,6 +181,10 @@ const clock = new THREE.Clock()
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime()
+
+  // Update particles
+  particles.rotation.y = elapsedTime * 0.1
+  particles.rotation.x = elapsedTime * 0.05
 
   // Update controls
   controls.update()
