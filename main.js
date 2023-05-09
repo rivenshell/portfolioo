@@ -43,6 +43,17 @@ THREE.DefaultLoadingManager.onError = function (url) {
   console.log("There was an error loading " + url)
 }
 
+//web audio api
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+const analyser = audioCtx.createAnalyser()
+
+// …
+
+analyser.fftSize = 2048
+const bufferLength = analyser.frequencyBinCount
+const dataArray = new Uint8Array(bufferLength)
+analyser.getByteTimeDomainData(dataArray)
+
 // Debug
 const gui = new dat.GUI()
 
