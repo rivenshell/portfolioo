@@ -5,6 +5,44 @@ import * as dat from "lil-gui"
 /**
  * Base
  */
+
+//loadingmanager
+THREE.DefaultLoadingManager.onStart = function (url, itemsLoaded, itemsTotal) {
+  console.log(
+    "Started loading file: " +
+      url +
+      ".\nLoaded " +
+      itemsLoaded +
+      " of " +
+      itemsTotal +
+      " files."
+  )
+}
+
+THREE.DefaultLoadingManager.onLoad = function () {
+  console.log("Loading Complete!")
+}
+
+THREE.DefaultLoadingManager.onProgress = function (
+  url,
+  itemsLoaded,
+  itemsTotal
+) {
+  console.log(
+    "Loading file: " +
+      url +
+      ".\nLoaded " +
+      itemsLoaded +
+      " of " +
+      itemsTotal +
+      " files."
+  )
+}
+
+THREE.DefaultLoadingManager.onError = function (url) {
+  console.log("There was an error loading " + url)
+}
+
 // Debug
 const gui = new dat.GUI()
 
@@ -91,7 +129,7 @@ const sound = new THREE.Audio(listener)
 //audio loader
 console.log(listener)
 const audioLoader = new THREE.AudioLoader()
-audioLoader.load("/eliza.mp3", function (buffer) {
+audioLoader.load("/audio/eliza.mp3", function (buffer) {
   sound.setBuffer(buffer)
   sound.setLoop(true)
   sound.setVolume(0.5)
