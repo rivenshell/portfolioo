@@ -136,7 +136,7 @@ const sound = new THREE.Audio(listener)
 //audio loader
 console.log(listener)
 const audioLoader = new THREE.AudioLoader()
-audioLoader.load("./static/eliza.mp3", function (buffer) {
+audioLoader.load("/eliza.mp3", function (buffer) {
   sound.setBuffer(buffer)
   sound.setLoop(true)
   sound.setVolume(0.5)
