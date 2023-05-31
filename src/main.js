@@ -88,7 +88,7 @@ let mixer = null
 
 const loader = new OBJLoader()
 loader.load(
-  "/models/cointainer.obj",
+  "/models/containerNORMAL.obj",
   function (object) {
     scene.add(object)
   },
@@ -103,23 +103,23 @@ loader.load(
 /**
  * Floor
  */
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(50, 50),
-  new THREE.MeshStandardMaterial({
-    color: "#444444",
-    metalness: 0,
-    roughness: 0.5,
-  })
-)
-floor.receiveShadow = true
-floor.rotation.x = -Math.PI * 0.5
-scene.add(floor)
+// const floor = new THREE.Mesh(
+//   new THREE.PlaneGeometry(50, 50),
+//   new THREE.MeshStandardMaterial({
+//     color: "#444444",
+//     metalness: 0,
+//     roughness: 0.5,
+//   })
+// )
+// floor.receiveShadow = true
+// floor.rotation.x = -Math.PI * 0.5
+// scene.add(floor)
 
 /**
  * Lights
  */
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
-scene.add(ambientLight)
+// const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
+// scene.add(ambientLight)
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6)
 directionalLight.castShadow = true
@@ -131,6 +131,10 @@ directionalLight.shadow.camera.right = 7
 directionalLight.shadow.camera.bottom = -9
 directionalLight.position.set(5, 5, 5)
 scene.add(directionalLight)
+
+const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6)
+directionalLight.position.set(0.25, 3, -2.25)
+scene.add(directionalLight2)
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
@@ -168,7 +172,9 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 )
-camera.position.z = 3
+camera.position.z = 5
+camera.position.x = -2
+camera.position.y = 1
 scene.add(camera)
 
 //Audio
