@@ -63,25 +63,6 @@ const textureLoader = new THREE.TextureLoader()
  */
 
 // Geometry
-const particlesGeometry = new THREE.BufferGeometry(1, 32, 32)
-const count = 5000
-
-const positions = new Float32Array(count * 3)
-
-for (let i = 0; i < count * 3; i++) {
-  positions[i] = (Math.random() - 0.5) * 10
-}
-
-particlesGeometry.setAttribute(
-  "position",
-  new THREE.BufferAttribute(positions, 3)
-)
-
-// Material
-const particlesMaterial = new THREE.PointsMaterial()
-;(particlesMaterial.size = 0.01),
-  (particlesMaterial.sizeAttenuation = true),
-  (particlesMaterial.color = new THREE.Color("#ffffff"))
 
 // add Model
 let mixer = null
@@ -100,27 +81,6 @@ loader.load(
   }
 )
 
-/**
- * Floor
- */
-// const floor = new THREE.Mesh(
-//   new THREE.PlaneGeometry(50, 50),
-//   new THREE.MeshStandardMaterial({
-//     color: "#444444",
-//     metalness: 0,
-//     roughness: 0.5,
-//   })
-// )
-// floor.receiveShadow = true
-// floor.rotation.x = -Math.PI * 0.5
-// scene.add(floor)
-
-/**
- * Lights
- */
-// const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
-// scene.add(ambientLight)
-
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6)
 directionalLight.castShadow = true
 directionalLight.shadow.mapSize.set(1024, 1024)
@@ -135,10 +95,6 @@ scene.add(directionalLight)
 const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6)
 directionalLight.position.set(0.25, 3, -2.25)
 scene.add(directionalLight2)
-
-// Points
-const particles = new THREE.Points(particlesGeometry, particlesMaterial)
-scene.add(particles)
 
 /**
  * Sizes
@@ -185,7 +141,7 @@ const sound = new THREE.Audio(listener)
 //audio loader
 console.log(listener)
 const audioLoader = new THREE.AudioLoader()
-audioLoader.load("/eliza.mp3", function (buffer) {
+audioLoader.load("/background_mixdown.mp3", function (buffer) {
   sound.setBuffer(buffer)
   sound.setLoop(true)
   sound.setVolume(0.5)
@@ -251,10 +207,6 @@ const tick = () => {
   if (mixer) {
     mixer.update(deltaTime)
   }
-
-  // Update particles
-  particles.rotation.y = elapsedTime * 0.1
-  particles.rotation.x = elapsedTime * 0.05
 
   // Update controls
   controls.update()
