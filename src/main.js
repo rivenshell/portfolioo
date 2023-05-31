@@ -43,17 +43,6 @@ THREE.DefaultLoadingManager.onError = function (url) {
   console.log("There was an error loading " + url)
 }
 
-//web audio api
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-const analyser = audioCtx.createAnalyser()
-
-// …
-
-analyser.fftSize = 2048
-const bufferLength = analyser.frequencyBinCount
-const dataArray = new Uint8Array(bufferLength)
-analyser.getByteTimeDomainData(dataArray)
-
 // Debug
 const gui = new dat.GUI()
 
@@ -74,7 +63,7 @@ const textureLoader = new THREE.TextureLoader()
 
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry(1, 32, 32)
-const count = 500
+const count = 5000
 
 const positions = new Float32Array(count * 3)
 
@@ -89,9 +78,16 @@ particlesGeometry.setAttribute(
 
 // Material
 const particlesMaterial = new THREE.PointsMaterial()
-;(particlesMaterial.size = 0.02),
+;(particlesMaterial.size = 0.01),
   (particlesMaterial.sizeAttenuation = true),
   (particlesMaterial.color = new THREE.Color("#ffffff"))
+
+// add box
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1)
+const boxMaterial = new THREE.MeshBasicMaterial({ color: "#FFC0CB" })
+const box = new THREE.Mesh(boxGeometry, boxMaterial)
+box.position.set(0, 0, 0)
+scene.add(box)
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
@@ -140,12 +136,19 @@ const sound = new THREE.Audio(listener)
 //audio loader
 console.log(listener)
 const audioLoader = new THREE.AudioLoader()
-audioLoader.load("/audio/eliza.mp3", function (buffer) {
+audioLoader.load("./static/eliza.mp3", function (buffer) {
   sound.setBuffer(buffer)
   sound.setLoop(true)
   sound.setVolume(0.5)
   sound.play()
 })
+
+// create an AudioAnalyser, passing in the sound and desired fftSize
+const analyser = new THREE.AudioAnalyser(sound, 32)
+
+// get the average frequency of the sound
+const data = analyser.getAverageFrequency()
+console.log(data)
 
 //add audio controls
 const audioControls = {
