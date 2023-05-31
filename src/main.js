@@ -89,11 +89,13 @@ directionalLight.shadow.camera.left = -7
 directionalLight.shadow.camera.top = 7
 directionalLight.shadow.camera.right = 7
 directionalLight.shadow.camera.bottom = -9
-directionalLight.position.set(5, 5, 5)
+directionalLight.position.set(5, 5, -5)
+// directionalLight.color.setHex(0x665151)
 scene.add(directionalLight)
 
 const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6)
-directionalLight.position.set(0.25, 3, -2.25)
+directionalLight.position.set(8, 3, -6)
+directionalLight.color.setHex(0xff0000)
 scene.add(directionalLight2)
 
 /**
@@ -128,8 +130,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 )
-camera.position.z = 5
-camera.position.x = -2
+camera.position.z = 8
+camera.position.x = -6.8
 camera.position.y = 1
 scene.add(camera)
 
