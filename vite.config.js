@@ -5,6 +5,7 @@ export default {
   root: "src/",
   publicDir: "../static/",
   base: "./",
+  assetsInclude: ["2am.svg"],
   server: {
     host: true,
     open: !isCodeSandbox, // Open if it's not a CodeSandbox
